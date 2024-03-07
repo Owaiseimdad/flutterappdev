@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:learning_free_code_camp/views/login_view.dart';
 import '../firebase_options.dart';
 
 class RegisterView extends StatefulWidget {
@@ -31,61 +32,56 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Register")),
-        body: FutureBuilder(
-            future: Firebase.initializeApp(
-              options: DefaultFirebaseOptions.currentPlatform,
+      appBar: AppBar(
+        title: Text("Register"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            TextField(
+              controller: _useremail,
+              autocorrect: false,
+              enableSuggestions: false,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(hintText: "Enter your email"),
             ),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  return Center(
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: _useremail,
-                          autocorrect: false,
-                          enableSuggestions: false,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration:
-                              InputDecoration(hintText: "Enter your email"),
-                        ),
-                        TextField(
-                          obscureText: true,
-                          autocorrect: false,
-                          enableSuggestions: false,
-                          controller: _password,
-                          decoration:
-                              InputDecoration(hintText: "Enter your password"),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            final useremail = _useremail.text;
-                            final password = _password.text;
+            TextField(
+              obscureText: true,
+              autocorrect: false,
+              enableSuggestions: false,
+              controller: _password,
+              decoration: InputDecoration(hintText: "Enter your password"),
+            ),
+            TextButton(
+              onPressed: () async {
+                final useremail = _useremail.text;
+                final password = _password.text;
 
-                            try {
-                              final usercredentials = await FirebaseAuth
-                                  .instance
-                                  .createUserWithEmailAndPassword(
-                                      email: useremail, password: password);
-                            } on FirebaseAuthException catch (e) {
-                              if (e.code == "weak-password") {
-                                print("Weak Password");
-                              } else if (e.code == "email-already-in-use") {
-                                print("Users exist");
-                              } else if (e.code == "invalid-email") {
-                                print("Invalid email");
-                              }
-                            }
-                          },
-                          child: const Text("Regsiter"),
-                        ),
-                      ],
-                    ),
-                  );
-                default:
-                  return const Text("Loading...");
-              }
-            }));
+                try {
+                  final usercredentials = await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: useremail, password: password);
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == "weak-password") {
+                    print("Weak Password");
+                  } else if (e.code == "email-already-in-use") {
+                    print("Users exist");
+                  } else if (e.code == "invalid-email") {
+                    print("Invalid email");
+                  }
+                }
+              },
+              child: const Text("Regsiter"),
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/login/', (route) => false);
+                },
+                child: Text("Already have an account? Login."))
+          ],
+        ),
+      ),
+    );
   }
 }
