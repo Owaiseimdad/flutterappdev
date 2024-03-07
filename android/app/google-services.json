@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "462396180516",
+    "project_id": "authtutorial-7e711",
+    "storage_bucket": "authtutorial-7e711.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462396180516:android:a2ab1434d47c137c8ef0b1",
+        "android_client_info": {
+          "package_name": "com.example.learning_free_code_camp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ5b28cxZOptQSlGTBz28uXE7bgez2QmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462396180516:android:774104824cfea2cc8ef0b1",
+        "android_client_info": {
+          "package_name": "com.example.login_page"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ5b28cxZOptQSlGTBz28uXE7bgez2QmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
