@@ -1,6 +1,7 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer' as devtools;
 // import '../firebase_options.dart';
 
 class LoginView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Center(
         child: Column(
@@ -42,7 +43,7 @@ class _LoginViewState extends State<LoginView> {
               autocorrect: false,
               enableSuggestions: false,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(hintText: "Enter your email"),
+              decoration: const InputDecoration(hintText: "Enter your email"),
             ),
             TextField(
               obscureText: true,
@@ -60,12 +61,12 @@ class _LoginViewState extends State<LoginView> {
                   final usercredentials = await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: useremail, password: password);
-
-                  print(usercredentials);
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/main/', (route) => false);
                 } on FirebaseAuthException catch (e) {
-                  print(e.code);
+                  devtools.log(e.code);
                 } catch (e) {
-                  print(e.runtimeType);
+                  devtools.log(e.runtimeType as String);
                 }
               },
               child: const Text("Login"),
