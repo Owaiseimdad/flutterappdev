@@ -19,6 +19,7 @@ class Middlesware extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               final user = FirebaseAuth.instance.currentUser;
+              print(user);
               if (user != null) {
                 if (user.emailVerified) {
                   return const HomePage();
@@ -28,7 +29,6 @@ class Middlesware extends StatelessWidget {
               } else {
                 return const LoginView();
               }
-
             default:
               return const CircularProgressIndicator();
           }

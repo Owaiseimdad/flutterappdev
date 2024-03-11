@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_free_code_camp/constants/routes.dart';
+import 'package:learning_free_code_camp/views/error_dialog.dart';
+import 'package:learning_free_code_camp/views/show_dialog.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({super.key});
@@ -22,9 +25,30 @@ class _VerifyEmailState extends State<VerifyEmail> {
             TextButton(
                 onPressed: () async {
                   final user = FirebaseAuth.instance.currentUser;
-                  await user?.sendEmailVerification();
+                  try {
+                    await user?.sendEmailVerification();
+
+                    return showTextDialog(
+                        context,
+                        "Verification email sent, please check your inbox and verify.\n After verification please okay and click on verified button.",
+                        'Email Verification');
+                  } catch (e) {
+                    return showErrorDialog(context, e.toString());
+                  }
                 },
-                child: const Text("Click here to verify"))
+                child: const Text("Click here to verify")),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(loginRoutes, (route) => false);
+                },
+                child: const Text('Verified?')),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(loginRoutes, (route) => false);
+                },
+                child: const Text('Login with another email'))
           ],
         ),
       ),
